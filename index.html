@@ -1,0 +1,1009 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>축구심판법 정심 퀴즈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F1F4EF; --surface:#FFFFFF; --surface-2:#E8EDE6; --ink:#14221A; --muted:#56675C; --line:#D3DCD2;
+  --pitch:#1B6A42; --pitch-deep:#134E30; --on-pitch:#F4FAF5;
+  --yellow:#F2C200; --yellow-ink:#2A2200; --red:#CF2F37; --good:#1C8A4B; --good-soft:#DDF1E4; --bad-soft:#FBE3E3;
+  --team-a:#2356B5; --team-a-soft:#E1E9F8;
+  --focus:#1B6A42;
+  --display:"Black Han Sans","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1712; --surface:#15211A; --surface-2:#1C2B22; --ink:#E6EEE8; --muted:#95A69A; --line:#2A3B31;
+    --pitch:#1E6340; --pitch-deep:#123A25; --on-pitch:#F0F8F2;
+    --yellow:#F5CB2B; --yellow-ink:#2A2200; --red:#EE5A60; --good:#4CC07E; --good-soft:#18352A; --bad-soft:#3A1D20;
+    --team-a:#5C8FE8; --team-a-soft:#1A2640;
+    --focus:#6FD39A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1712; --surface:#15211A; --surface-2:#1C2B22; --ink:#E6EEE8; --muted:#95A69A; --line:#2A3B31;
+  --pitch:#1E6340; --pitch-deep:#123A25; --on-pitch:#F0F8F2;
+  --yellow:#F5CB2B; --yellow-ink:#2A2200; --red:#EE5A60; --good:#4CC07E; --good-soft:#18352A; --bad-soft:#3A1D20;
+  --team-a:#5C8FE8; --team-a-soft:#1A2640;
+  --focus:#6FD39A;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* ---------- header band ---------- */
+.band{position:relative;background:var(--pitch);color:var(--on-pitch);overflow:hidden;
+  background-image:repeating-linear-gradient(90deg,transparent 0 64px,rgba(0,0,0,.06) 64px 128px)}
+.band svg.lines{position:absolute;right:-60px;top:50%;transform:translateY(-50%);height:140%;width:auto;pointer-events:none}
+.band .inner{position:relative;max-width:880px;margin:0 auto;padding:36px 16px 32px}
+.band.slim .inner{padding:14px 16px}
+.band.slim h1{font-size:28px;margin:0}
+.band.slim p,.band.slim .eyebrow{display:none}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1.05;margin:10px 0 10px;text-wrap:balance;letter-spacing:-.01em}
+h1 .card-y{display:inline-block;width:.42em;height:.58em;background:var(--yellow);border-radius:3px;transform:rotate(8deg) translateY(-.08em);margin-left:.18em;box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.band p{margin:0;max-width:34em;opacity:.92}
+
+main{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+.label{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin:0 0 10px}
+
+/* ---------- setup ---------- */
+.setup{display:grid;gap:28px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.mode{display:grid;gap:4px;align-content:start;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,background .15s}
+.mode:hover{border-color:var(--pitch)}
+.mode .who{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.mode b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.2}
+.mode span{font-size:14px;color:var(--muted);line-height:1.5}
+.mode[aria-pressed="true"]{border-color:var(--pitch);background:var(--good-soft);box-shadow:inset 0 0 0 1px var(--pitch)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;cursor:pointer;display:flex;gap:8px;align-items:center;font-weight:500;transition:border-color .15s,background .15s}
+.chip small{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--pitch);background:var(--pitch);color:var(--on-pitch)}
+.chip[aria-pressed="true"] small{color:var(--on-pitch);opacity:.8}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:9px 18px;cursor:pointer;font-weight:500}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.row{display:flex;flex-wrap:wrap;gap:28px}
+.teams{display:flex;flex-wrap:wrap;gap:10px}
+.teams label{display:grid;gap:4px;font-size:13px;color:var(--muted);font-weight:600}
+.teams input{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;width:150px;font-weight:600;color:var(--ink)}
+.start-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{border:0;border-radius:10px;padding:13px 22px;font-weight:700;cursor:pointer;background:var(--pitch);color:var(--on-pitch);font-size:16px}
+.btn:hover{background:var(--pitch-deep)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.small{padding:8px 14px;font-size:14px}
+.rules{margin:0;font-size:14px;color:var(--muted);max-width:40em}
+.lb{border:1.5px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px}
+.lb ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.lb li{display:grid;grid-template-columns:2.2em 1fr auto;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.lb li:last-child{border-bottom:0}
+.lb li .rk{font-family:var(--mono);color:var(--muted);font-size:13px}
+.lb li .sc{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+.lb li.me{background:var(--good-soft);border-radius:6px;padding-inline:6px}
+.lb .empty,.lb li.empty{display:block;border:0;color:var(--muted);font-size:14px;margin:0;padding:6px 0}
+.lb-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.lb-head .label{margin:0}
+.lb-tabs{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.lb-tabs button{border:0;background:transparent;padding:5px 12px;cursor:pointer;font-size:14px;font-weight:600}
+.lb-tabs button+button{border-left:1.5px solid var(--line)}
+.lb-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.room-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.room-row label{font-size:13px;font-weight:600;color:var(--muted)}
+.room,.room-row input{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 10px;width:120px;font-weight:600;color:var(--ink)}
+.lb-status{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.lb li .rm{font-size:12px;color:var(--muted);margin-left:6px}
+/* projector board */
+.bv{display:grid;gap:18px}
+.bv-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.bv-title{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0}
+.bv-ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.bv-ctrl .room{width:150px;padding:9px 10px}
+.bv-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.bv-list li{display:grid;grid-template-columns:3.2em 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 18px;font-size:clamp(18px,2.6vw,26px);font-weight:600}
+.bv-list li .rk{font-family:var(--display);font-weight:400;font-size:1.3em;color:var(--muted)}
+.bv-list li:nth-child(1){border-color:var(--yellow);box-shadow:inset 6px 0 0 var(--yellow)}
+.bv-list li:nth-child(1) .rk{color:var(--ink)}
+.bv-list li .sc{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.bv-list li .rm{font-size:.6em;color:var(--muted);margin-left:8px;font-weight:500}
+.bv-list li.empty{display:block;color:var(--muted);font-weight:500;box-shadow:none;border-color:var(--line)}
+.laws{border-top:1.5px solid var(--line);padding-top:22px}
+.laws ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px 18px}
+.laws li{display:flex;gap:10px;align-items:baseline;font-size:15px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.laws li span{font-family:var(--mono);font-size:12px;color:var(--good);min-width:3.2em;font-weight:600}
+
+/* ---------- quiz ---------- */
+.board{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px;position:relative}
+.board .nums{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.board .right{display:flex;gap:14px;align-items:center}
+.led{font-family:var(--mono);font-variant-numeric:tabular-nums;background:#101712;color:#F4F7F2;border-radius:8px;padding:6px 12px;font-size:14px;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.led b{font-size:18px;color:var(--yellow)}
+.led.g b{color:#5FD58F}
+.led.r b{color:#FF7A7F}
+.led.big b{font-size:24px}
+.led .slot{display:inline-block;width:13px;height:18px;border-radius:2px;border:1.5px dashed #6C7A70}
+.led .slot.y{background:var(--yellow);border:0}
+.led .slot.rd{background:#FF5A60;border:0}
+.led .ta{color:#8FB4FF}
+.led.time.urgent{background:var(--red)}
+.led.time.urgent b{color:#fff}
+.linkbtn{background:none;border:0;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:14px;padding:0}
+.pop{position:absolute;left:50%;top:-6px;font-family:var(--mono);font-weight:600;font-size:22px;color:var(--good);pointer-events:none;opacity:0}
+@media (prefers-reduced-motion:no-preference){.pop.show{animation:rise 1s ease-out}}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,10px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-26px)}}
+.timer{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.timer i{display:block;height:100%;width:100%;background:var(--pitch)}
+.timer.urgent i{background:var(--red)}
+.progress{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.progress i{display:block;height:100%;background:var(--pitch);width:0;transition:width .3s}
+.turn{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-radius:12px;padding:10px 16px;margin-bottom:14px;font-weight:700;font-size:18px}
+.turn.a{background:var(--team-a);color:#fff}
+.turn.b{background:var(--surface);color:var(--ink);border:2px solid var(--ink)}
+.turn small{font-weight:500;font-size:14px;opacity:.85}
+
+.qcard{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:24px 22px;display:grid;gap:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:13px;font-weight:600;padding:3px 10px;border-radius:6px;background:var(--surface-2);color:var(--muted)}
+.tag.law{background:var(--pitch);color:var(--on-pitch)}
+.tag.new{background:var(--yellow);color:var(--yellow-ink)}
+.qtext{font-size:clamp(19px,2.6vw,23px);font-weight:600;line-height:1.5;margin:0;text-wrap:pretty}
+.big .qtext{font-size:clamp(22px,3.4vw,30px)}
+.opts{display:grid;gap:10px}
+.opts.ox{grid-template-columns:1fr 1fr}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:13px 14px;cursor:pointer;font-size:16px;transition:border-color .12s,background .12s}
+.big .opt{font-size:19px;padding:16px}
+.opt:hover:not(:disabled){border-color:var(--pitch)}
+.opt .k{font-family:var(--mono);font-weight:600;font-size:13px;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);flex:none}
+.opts.ox .opt{justify-content:center;flex-direction:column;gap:2px;padding:18px 10px}
+.opts.ox .opt .sym{font-family:var(--display);font-size:48px;line-height:1}
+.opts.ox .opt .k{display:none}
+.opts.ox .opt .txt{font-size:14px;color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--ink);background:var(--surface-2)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--good);background:var(--good-soft)}
+.opt.correct .k{background:var(--good);color:#fff}
+.opt.wrong{border-color:var(--red);background:var(--bad-soft)}
+.opt.wrong .k{background:var(--red);color:#fff}
+
+.feedback{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;border-top:1.5px dashed var(--line);padding-top:18px}
+.verdict{width:62px;height:84px;border-radius:6px;display:grid;place-items:center;text-align:center;font-family:var(--display);font-size:20px;line-height:1.1;transform:rotate(-6deg);box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.verdict.ok{background:var(--good);color:#fff}
+.verdict.no{background:var(--yellow);color:var(--yellow-ink)}
+.verdict.rd{background:var(--red);color:#fff}
+.verdict.gray{background:var(--surface-2);color:var(--muted);font-size:16px}
+@media (prefers-reduced-motion:no-preference){.verdict{animation:flash .35s ease-out}}
+@keyframes flash{from{transform:rotate(-20deg) translateY(10px) scale(.8);opacity:0}}
+.fb-head{font-weight:700;margin:0 0 4px}
+.fb-body{margin:0;color:var(--ink)}
+.fb-body .ans{font-weight:700}
+.src{margin:8px 0 0;font-size:13px;color:var(--muted);font-family:var(--mono)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.hint{font-size:13px;color:var(--muted);margin-right:auto;align-self:center}
+
+/* goal overlay */
+.goal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(8,20,12,.45);z-index:10;padding:16px}
+.goal>div{background:var(--pitch);color:var(--on-pitch);border-radius:20px;padding:26px 44px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35);border:3px solid rgba(255,255,255,.35)}
+.goal b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(56px,14vw,96px);line-height:1}
+.goal span{display:block;margin-top:6px;font-weight:700;font-size:20px}
+.goal.miss>div{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.goal.red>div{background:var(--red);color:#fff}
+@media (prefers-reduced-motion:no-preference){.goal>div{animation:zoom .45s cubic-bezier(.2,1.4,.4,1)}}
+@keyframes zoom{from{transform:scale(.4) rotate(-6deg);opacity:0}}
+
+/* ---------- result ---------- */
+.result{display:grid;gap:26px}
+.score-wrap{display:flex;flex-wrap:wrap;gap:22px;align-items:center;background:var(--pitch);color:var(--on-pitch);border-radius:16px;padding:24px 22px}
+.score{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:56px;line-height:1;white-space:nowrap}
+.score small{font-size:22px;opacity:.75}
+.grade{font-family:var(--display);font-size:28px;line-height:1.2}
+.grade-note{margin:4px 0 0;opacity:.9;font-size:15px}
+.save{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.save input{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;width:180px;font-weight:600}
+.save .msg{font-size:14px;color:var(--muted)}
+.cats{display:grid;gap:10px}
+.cat-row{display:grid;grid-template-columns:130px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.cat-row .bar{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.cat-row .bar i{display:block;height:100%;background:var(--pitch)}
+.cat-row .v{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:14px;color:var(--muted)}
+.review{display:grid;gap:10px}
+.review details{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 16px}
+.review summary{cursor:pointer;font-weight:600;list-style:none;display:flex;gap:10px}
+.review summary::-webkit-details-marker{display:none}
+.review summary .n{font-family:var(--mono);color:var(--red);font-size:14px;flex:none;padding-top:1px}
+.review .body{margin-top:10px;font-size:15px;display:grid;gap:6px}
+.review .body .mine{color:var(--red)}
+.review .body .right{color:var(--good);font-weight:600}
+.perfect{padding:18px;border:1.5px dashed var(--line);border-radius:12px;color:var(--muted)}
+.foot{font-size:13px;color:var(--muted);margin-top:40px;border-top:1px solid var(--line);padding-top:16px}
+
+@media (max-width:520px){
+  .band .inner{padding-top:28px}
+  .qcard{padding:18px 16px}
+  .cat-row{grid-template-columns:96px 1fr 48px}
+  .feedback{grid-template-columns:1fr}
+  .verdict{width:52px;height:70px;font-size:17px}
+  .score{font-size:44px}
+  .band svg.lines{opacity:.5}
+  .goal>div{padding:22px 26px}
+}
+</style>
+
+<header class="band" id="band">
+  <svg class="lines" viewBox="0 0 300 300" aria-hidden="true">
+    <g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2">
+      <circle cx="150" cy="150" r="70"/>
+      <circle cx="150" cy="150" r="3" fill="rgba(255,255,255,.22)"/>
+      <line x1="150" y1="0" x2="150" y2="300"/>
+      <rect x="240" y="80" width="80" height="140"/>
+      <rect x="280" y="115" width="40" height="70"/>
+      <path d="M240 120 A 40 40 0 0 0 240 180"/>
+    </g>
+  </svg>
+  <div class="inner">
+    <div class="eyebrow">IFAB 경기규칙 2025/26 기준 · 중고등 심판법 연수</div>
+    <h1>정심 퀴즈<span class="card-y" aria-hidden="true"></span></h1>
+    <p>주심이 되어 판정해 보세요. 시간 안에 정확히 판정하고, 경고 두 장은 피하고, 친구들과 팀 대결도 해 보세요.</p>
+  </div>
+</header>
+
+<main>
+  <!-- SETUP -->
+  <section id="setup" class="setup">
+    <div>
+      <p class="label">게임 모드</p>
+      <div class="modes" id="modes">
+        <button type="button" class="mode" id="mode-speed" data-m="speed" aria-pressed="true"><span class="who">개인 · 20초 제한</span><b>스피드 판정</b><span>빨리 맞힐수록 점수가 커지고, 연속 정심이면 콤보 보너스가 붙습니다.</span></button>
+        <button type="button" class="mode" id="mode-survival" data-m="survival" aria-pressed="false"><span class="who">개인 · 20초 제한</span><b>퇴장 서바이벌</b><span>오심하면 경고 한 장. 두 장이면 퇴장입니다. 몇 문제까지 버틸까요?</span></button>
+        <button type="button" class="mode" id="mode-team" data-m="team" aria-pressed="false"><span class="who">교실 · 30초 제한</span><b>팀 대항전</b><span>두 팀이 번갈아 답합니다. 정심은 골! 동점이면 승부차기로 가립니다.</span></button>
+        <button type="button" class="mode" id="mode-practice" data-m="practice" aria-pressed="false"><span class="who">개인 · 시간 제한 없음</span><b>연습 경기</b><span>천천히 풀며 해설과 근거 조항을 꼼꼼히 읽습니다.</span></button>
+      </div>
+    </div>
+    <div>
+      <p class="label">출제 영역 (여러 개 선택 가능)</p>
+      <div class="chips" id="cat-chips"></div>
+    </div>
+    <div class="row">
+      <div id="count-wrap">
+        <p class="label" id="count-label">문항 수</p>
+        <div class="seg" id="count-seg">
+          <button type="button" id="cnt-10" data-n="10" aria-pressed="true">10문항</button>
+          <button type="button" id="cnt-20" data-n="20" aria-pressed="false">20문항</button>
+          <button type="button" id="cnt-all" data-n="999" aria-pressed="false">전체</button>
+        </div>
+      </div>
+      <div id="team-wrap" hidden>
+        <p class="label">팀 이름</p>
+        <div class="teams">
+          <label for="team-a">먼저 하는 팀<input id="team-a" maxlength="8" value="청팀"></label>
+          <label for="team-b">나중에 하는 팀<input id="team-b" maxlength="8" value="백팀"></label>
+        </div>
+      </div>
+    </div>
+    <p class="rules" id="rules"></p>
+    <div class="start-row">
+      <button class="btn" id="start-btn" type="button">휘슬 불고 시작</button>
+      <button class="btn ghost small" id="snd-setup" type="button" aria-pressed="true">소리 켜짐</button>
+    </div>
+    <div class="lb" id="lb-wrap">
+      <div class="lb-head">
+        <p class="label" id="lb-title">순위</p>
+        <div class="lb-tabs" id="lb-tabs" hidden>
+          <button type="button" id="lbv-class" data-v="class" aria-pressed="true">우리 반</button>
+          <button type="button" id="lbv-device" data-v="device" aria-pressed="false">이 기기</button>
+        </div>
+      </div>
+      <div class="room-row" id="room-row" hidden>
+        <label for="room-in">반</label>
+        <input id="room-in" maxlength="12" placeholder="예: 2-3">
+        <button class="btn ghost small" type="button" id="room-go">순위 보기</button>
+        <a class="linkbtn" href="#board" id="board-link">교실 화면에 크게 띄우기</a>
+      </div>
+      <p class="lb-status" id="lb-status" hidden></p>
+      <ol id="lb-list"></ol>
+    </div>
+    <div class="laws">
+      <p class="label">경기규칙 17개 조항</p>
+      <ol id="law-list"></ol>
+    </div>
+  </section>
+
+  <!-- PROJECTOR RANKING -->
+  <section id="board-view" class="bv" hidden>
+    <div class="bv-head">
+      <h2 class="bv-title" id="bv-title">우리 반 순위</h2>
+      <div class="bv-ctrl">
+        <div class="seg" id="bv-mode">
+          <button type="button" id="bv-speed" data-m="speed" aria-pressed="true">스피드 판정</button>
+          <button type="button" id="bv-survival" data-m="survival" aria-pressed="false">퇴장 서바이벌</button>
+        </div>
+        <input id="bv-room" class="room" maxlength="12" placeholder="반 (비우면 전체)">
+        <button class="btn ghost small" type="button" id="bv-refresh">새로고침</button>
+        <button class="btn small" type="button" id="bv-close">퀴즈로 돌아가기</button>
+      </div>
+    </div>
+    <p class="lb-status" id="bv-status"></p>
+    <ol class="bv-list" id="bv-list"></ol>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" hidden>
+    <div class="board">
+      <div class="nums" id="board-nums"></div>
+      <div class="right">
+        <button class="linkbtn" type="button" id="snd-quiz">소리 끄기</button>
+        <button class="linkbtn" type="button" id="quit-btn">그만하고 결과 보기</button>
+      </div>
+      <span class="pop" id="pop" aria-hidden="true"></span>
+    </div>
+    <div class="timer" id="timer" hidden><i id="timer-bar"></i></div>
+    <div class="progress" id="progress"><i id="prog"></i></div>
+    <div class="turn" id="turn" hidden></div>
+
+    <article class="qcard" id="qcard" aria-live="polite">
+      <div class="tags" id="q-tags"></div>
+      <p class="qtext" id="q-text"></p>
+      <div class="opts" id="q-opts"></div>
+      <div class="feedback" id="feedback" hidden>
+        <div class="verdict" id="verdict"></div>
+        <div>
+          <p class="fb-head" id="fb-head"></p>
+          <p class="fb-body" id="fb-body"></p>
+          <p class="src" id="fb-src"></p>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="hint" id="kbd-hint"></span>
+        <button class="btn" type="button" id="next-btn" hidden>다음 문제</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="result" hidden>
+    <div class="score-wrap">
+      <div class="score" id="r-score"></div>
+      <div>
+        <div class="grade" id="r-grade"></div>
+        <p class="grade-note" id="r-note"></p>
+      </div>
+    </div>
+    <div id="r-save-wrap" hidden>
+      <p class="label" id="r-save-label">순위표에 이름 남기기</p>
+      <div class="save">
+        <input id="r-room" class="room" maxlength="12" placeholder="반 (예: 2-3)" hidden>
+        <input id="r-name" maxlength="10" placeholder="이름 또는 별명">
+        <button class="btn small" type="button" id="r-save">기록 저장</button>
+        <span class="msg" id="r-msg"></span>
+      </div>
+    </div>
+    <div class="lb" id="r-lb-wrap" hidden>
+      <p class="label" id="r-lb-title">이 기기 순위</p>
+      <ol id="r-lb"></ol>
+    </div>
+    <div>
+      <p class="label" id="r-cats-label">영역별 정답률</p>
+      <div class="cats" id="r-cats"></div>
+    </div>
+    <div>
+      <p class="label" id="r-review-label">오답 노트</p>
+      <div class="review" id="r-review"></div>
+    </div>
+    <div class="start-row">
+      <button class="btn" type="button" id="retry-all">한 판 더</button>
+      <button class="btn ghost" type="button" id="retry-wrong">틀린 문제 연습하기</button>
+      <button class="btn ghost" type="button" id="to-setup">모드 선택으로</button>
+    </div>
+  </section>
+
+  <p class="foot">모든 문항과 해설은 국제축구평의회(IFAB) 「2025/26 경기규칙」(2025년 7월 1일 시행, 영문·한글 병기판) 본문과 대조했으며, 문제마다 근거 조항과 책자 쪽수를 표시했습니다. 순위표는 이 기기의 브라우저에만 저장됩니다. 경기 시간처럼 대회 규정으로 바뀔 수 있는 항목은 학생 대회 요강을 함께 확인하세요.</p>
+</main>
+
+<div class="goal" id="goal" hidden><div><b id="goal-t">골!</b><span id="goal-s"></span></div></div>
+
+<script>
+const LAWS = ["경기장","볼","선수","선수의 장비","주심","주심 외 심판들","경기 시간","경기 시작과 재개","볼의 인 & 아웃 오브 플레이","경기 결과의 결정","오프사이드","파울과 불법행위","프리킥","페널티킥","스로인","골킥","코너킥"];
+const CATS = [
+  {id:"field",   name:"경기장·장비",  laws:"1–4조"},
+  {id:"match",   name:"경기 운영",    laws:"5–10조"},
+  {id:"offside", name:"오프사이드",   laws:"11조"},
+  {id:"fouls",   name:"파울·징계",    laws:"12조"},
+  {id:"restart", name:"재개 방법",    laws:"13–17조"}
+];
+// t: "mc" 4지선다 | "ox"  / a: 정답 인덱스 (ox: 0=O, 1=X) / s: 상황 판정 문제 / n: 2025/26 개정 / p: 근거 쪽수(2025/26 경기규칙 책자)
+const Q = [
+  // ---- 경기장·장비
+  {c:"field",law:1,p:38,t:"mc",q:"정규 골대의 크기로 맞는 것은? (골포스트 안쪽 거리 · 지면에서 크로스바 아래쪽까지 높이)",o:["폭 7.32m · 높이 2.44m","폭 7.00m · 높이 2.40m","폭 7.50m · 높이 2.50m","폭 6.40m · 높이 2.14m"],a:0,e:"양 골포스트 안쪽 거리는 7.32m(8야드), 지면에서 크로스바 아래쪽까지 높이는 2.44m(8피트)입니다."},
+  {c:"field",law:1,p:36,t:"mc",q:"페널티 마크는 양 골포스트 사이 중앙 지점에서 몇 m 떨어져 있을까?",o:["9.15m","11m","12m","16.5m"],a:1,e:"페널티 마크는 11m(12야드) 지점입니다. 9.15m는 센터서클과 페널티 아크의 반지름, 16.5m는 페널티 에어리어의 깊이입니다."},
+  {c:"field",law:1,p:33,t:"mc",q:"센터서클의 반지름은?",o:["7.32m","9.15m","10m","11m"],a:1,e:"센터서클은 센터 마크를 중심으로 반지름 9.15m(10야드)입니다. 킥오프 때 상대 선수는 볼이 인 플레이될 때까지 볼에서 9.15m 이상 떨어져야 합니다."},
+  {c:"field",law:2,p:43,t:"mc",q:"경기용 볼의 둘레 길이는?",o:["60~62cm","64~66cm","68~70cm","72~74cm"],a:2,e:"볼의 둘레는 68cm 이상 70cm 이하, 무게는 경기 시작 시 410g 이상 450g 이하여야 합니다."},
+  {c:"field",law:4,p:54,t:"mc",q:"다음 중 선수의 필수 장비가 아닌 것은?",o:["정강이 보호대","스타킹","신발","장갑"],a:3,e:"필수 장비는 소매가 있는 상의, 반바지, 스타킹, 정강이 보호대, 신발입니다. 정강이 보호대는 스타킹으로 덮여야 합니다."},
+  {c:"field",law:4,p:54,t:"ox",q:"목걸이나 반지 같은 장신구는 테이프로 감아 가리면 착용한 채 경기할 수 있다.",a:1,e:"모든 장신구(목걸이, 반지, 팔찌, 귀걸이, 가죽 밴드, 고무 밴드 등)는 금지되며 반드시 빼야 합니다. 테이프로 가리는 것도 허용되지 않습니다."},
+  {c:"field",law:3,p:46,t:"ox",q:"한 팀의 선수가 7명 미만이면 경기를 시작하거나 계속할 수 없다.",a:0,e:"경기는 골키퍼 1명을 포함해 최대 11명으로 구성된 두 팀이 합니다. 어느 팀이든 7명 미만이면 경기를 시작하거나 계속할 수 없습니다."},
+  {c:"field",law:3,p:48,s:true,t:"mc",q:"경기 중 교체 선수가 들어가려고 한다. 교체 선수는 어디를 통해 경기장에 들어가야 할까?",o:["자기 팀 벤치 앞 어디서든","하프웨이 라인","자기 팀 골라인 쪽","가장 가까운 터치라인 아무 곳"],a:1,e:"교체 선수는 플레이가 중단되었을 때, 교체 아웃되는 선수가 떠난 뒤, 주심의 신호를 받고 하프웨이 라인을 통해서만 들어갑니다."},
+
+  // ---- 경기 운영
+  {c:"match",law:7,p:78,t:"mc",q:"경기규칙이 정한 기본 경기 시간과 하프타임은?",o:["전후반 각 40분, 하프타임 10분 이내","전후반 각 45분, 하프타임 15분 이내","전후반 각 45분, 하프타임 20분 이내","전후반 각 50분, 하프타임 15분 이내"],a:1,e:"경기는 전후반 각 45분이며 하프타임은 15분을 넘지 않습니다. 경기 시간은 경기 전 주심과 양 팀이 합의하고 대회 규정에 맞을 때만 줄일 수 있습니다. 학생 대회 요강을 확인하세요."},
+  {c:"match",law:7,p:78,t:"ox",q:"교체, 부상, 시간 지연 등으로 허비된 시간을 보충하는 추가 시간은 주심이 결정한다.",a:0,e:"주심은 교체, 부상 선수 확인·이송, 시간 낭비, 징계, 음료 휴식 등으로 허비된 시간을 전후반마다 보충합니다."},
+  {c:"match",law:7,p:79,t:"ox",q:"대기심이 표시한 추가 시간은 최소 시간이므로, 주심은 이를 늘릴 수는 있지만 줄일 수는 없다.",a:0,e:"대기심은 주심이 결정한 최소 추가 시간을 전후반 마지막 분에 표시합니다. 이 추가 시간은 주심이 늘릴 수 있지만 줄일 수는 없습니다."},
+  {c:"match",law:8,p:82,t:"ox",q:"킥오프에서 찬 볼이 아무도 닿지 않고 곧바로 상대 골에 들어가면 득점이 인정된다.",a:0,e:"킥오프에서는 상대 팀 골문에 직접 득점할 수 있습니다. 볼이 킥을 한 팀의 골문에 곧바로 들어가면 상대에게 코너킥을 줍니다."},
+  {c:"match",law:9,p:84,s:true,t:"mc",q:"슈팅한 볼이 주심의 몸에 맞고 굴절되어 곧바로 골문으로 들어갔다. 올바른 판정은?",o:["득점 인정","드롭볼","골킥","킥오프 다시 하기"],a:1,e:"볼이 심판에게 맞고 경기장 안에 남은 상태에서 곧바로 골문에 들어가거나, 볼 소유 팀이 바뀌거나, 유망한 공격이 시작되면 볼은 아웃 오브 플레이이며 드롭볼로 재개합니다."},
+  {c:"match",law:10,p:86,t:"mc",q:"골이 인정되려면 볼이 골라인을 어떻게 넘어야 할까?",o:["볼의 절반 이상이 넘으면","볼 전체가 넘으면","볼이 조금이라도 넘으면","골키퍼가 볼을 잡은 채 라인을 밟으면"],a:1,e:"득점 팀의 반칙이 없고, 볼 전체가 양 골포스트 사이와 크로스바 아래로 골라인을 완전히 넘어야 득점입니다."},
+  {c:"match",law:9,p:84,t:"ox",q:"볼의 일부가 터치라인 위에 걸쳐 있으면 볼은 아직 인 플레이다.",a:0,e:"볼 전체가 지면이나 공중에서 골라인 또는 터치라인을 완전히 넘어야 아웃 오브 플레이입니다."},
+  {c:"match",law:5,p:60,t:"ox",q:"주심은 경기를 재개한 뒤에도 바로 앞의 판정을 바꿀 수 있다.",a:1,e:"주심은 경기가 재개되었거나, 전후반 종료를 알리고 경기장을 떠났거나, 경기를 중지한 뒤에는 재개 판정을 바꿀 수 없습니다."},
+  {c:"match",law:8,p:82,s:true,t:"mc",q:"볼이 수비팀 페널티 에어리어 안에 있을 때 선수 부상으로 경기를 멈췄다. 드롭볼은 누구에게 주나?",o:["마지막에 볼을 터치한 팀의 선수","수비팀 골키퍼","공격팀 주장","양 팀 선수 한 명씩"],a:1,e:"볼이 페널티 에어리어 안에 있었다면 수비팀 골키퍼에게 드롭볼을 줍니다. 밖이었다면 볼을 소유했거나 소유했을 팀의 선수 한 명에게 주고, 판단할 수 없으면 마지막으로 볼을 터치한 팀의 선수에게 줍니다. 다른 선수들은 4m 이상 떨어져야 합니다."},
+
+  // ---- 오프사이드
+  {c:"offside",law:11,p:91,t:"ox",q:"오프사이드 위치에 있는 것만으로도 반칙이다.",a:1,e:"오프사이드 위치에 있는 것만으로는 반칙이 아닙니다. 동료가 볼을 플레이하거나 터치한 순간 오프사이드 위치에 있던 선수가 플레이에 관여할 때만 처벌합니다."},
+  {c:"offside",law:11,p:91,t:"ox",q:"자기 진영(하프웨이 라인 포함)에 있는 선수는 오프사이드 위치가 아니다.",a:0,e:"오프사이드 위치가 되려면 머리·몸·발의 일부가 상대 진영(하프웨이 라인 제외)에 있고, 볼과 뒤에서 두 번째 상대 선수보다 상대 골라인에 더 가까워야 합니다."},
+  {c:"offside",law:11,p:91,s:true,t:"mc",q:"동료가 패스한 순간, 공격수가 뒤에서 두 번째 수비수와 정확히 같은 선에 있었다. 판정은?",o:["오프사이드","오프사이드 위치가 아니다","부심 재량","간접 프리킥 후 재개"],a:1,e:"뒤에서 두 번째 상대 선수, 또는 마지막 두 명의 상대 선수와 같은 선에 있으면 오프사이드 위치가 아닙니다."},
+  {c:"offside",law:11,p:93,t:"mc",q:"다음 중 동료에게서 볼을 ‘곧바로’ 받았을 때 오프사이드 반칙이 성립하지 않는 경우는?",o:["직접 프리킥","간접 프리킥","스로인","동료의 헤딩 패스"],a:2,e:"골킥, 스로인, 코너킥에서 볼을 곧바로 받으면 오프사이드 반칙이 아닙니다. 프리킥은 여기에 포함되지 않습니다."},
+  {c:"offside",law:11,p:91,t:"ox",q:"오프사이드 위치를 판단할 때 손과 팔은 기준에 넣지 않는다(골키퍼 포함).",a:0,e:"골키퍼를 포함한 모든 선수의 손과 팔은 고려하지 않습니다. 팔의 위쪽 경계는 겨드랑이 밑 부분과 일직선을 이루는 선입니다."},
+  {c:"offside",law:11,p:93,t:"mc",q:"오프사이드 반칙이 선언되면 경기는 어떻게 재개할까?",o:["직접 프리킥","간접 프리킥","드롭볼","골킥"],a:1,e:"오프사이드 반칙이 일어난 지점에서 간접 프리킥으로 재개합니다. 반칙이 선수 자신의 진영에서 일어났더라도 마찬가지입니다."},
+
+  // ---- 파울·징계
+  {c:"fouls",law:14,p:115,s:true,t:"mc",q:"수비수가 자기 팀 페널티 에어리어 안에서, 볼이 인 플레이 중일 때 상대 공격수를 발로 걸어 넘어뜨렸다. 재개 방법은?",o:["간접 프리킥","직접 프리킥","페널티킥","드롭볼"],a:2,e:"직접 프리킥에 해당하는 반칙을 자기 페널티 에어리어 안에서 하면 페널티킥을 줍니다."},
+  {c:"fouls",law:12,p:102,t:"mc",q:"다음 중 경고(옐로카드)가 아니라 퇴장(레드카드) 사유인 것은?",o:["말이나 행동으로 항의","지속적인 반칙","플레이 재개 지연","다른 사람에게 침 뱉기"],a:3,e:"다른 사람을 깨물거나 침을 뱉으면 퇴장입니다. 항의, 지속적인 반칙, 재개 지연은 경고 사유입니다."},
+  {c:"fouls",law:12,p:104,t:"ox",q:"한 경기에서 두 번째 경고를 받은 선수는 퇴장된다.",a:0,e:"한 경기에서 두 번째 경고를 받으면 퇴장성 반칙입니다."},
+  {c:"fouls",law:12,p:105,s:true,t:"mc",q:"골키퍼가 아닌 수비수가 골라인 앞에서 ‘의도적으로’ 손을 뻗어 확실한 골을 막았다. 올바른 판정은?",o:["경고 + 페널티킥","퇴장 + 페널티킥","경고 + 간접 프리킥","페널티킥만"],a:1,e:"의도적인 핸드볼로 득점이나 명백한 득점 기회를 저지하면 장소와 관계없이 퇴장입니다(자기 페널티 에어리어 안의 골키퍼는 예외). 의도하지 않은 핸드볼로 저지해 페널티킥을 줄 때는 경고입니다."},
+  {c:"fouls",law:12,p:105,t:"ox",q:"페널티 에어리어 안에서 볼을 플레이하려다 상대의 명백한 득점 기회를 반칙으로 막았다면, 페널티킥과 함께 퇴장 대신 경고를 준다.",a:0,e:"페널티킥을 줄 때, 그 반칙이 볼을 플레이하려는 시도나 볼에 대한 도전이었다면 경고입니다. 붙잡기, 잡아당기기, 밀기처럼 볼을 플레이할 가능성이 없는 반칙이면 퇴장입니다."},
+  {c:"fouls",law:12,p:97,t:"ox",q:"공격수의 손에 우연히 볼이 맞은 뒤 그대로 골문으로 들어갔다면, 고의가 아니므로 득점이 인정된다.",a:1,e:"우연이라도 자신의 손/팔에서 곧바로, 또는 손/팔에 맞은 직후 상대 골에 득점하면 핸드볼 반칙입니다. 골키퍼도 마찬가지입니다."},
+  {c:"fouls",law:12,p:99,s:true,t:"mc",q:"같은 팀 수비수가 발로 의도적으로 보낸 볼을 골키퍼가 페널티 에어리어 안에서 손으로 잡았다. 판정은?",o:["직접 프리킥","간접 프리킥","페널티킥","반칙 아님"],a:1,e:"동료가 의도적으로 발로 차 준 볼이나 동료의 스로인을 곧바로 받은 볼을 골키퍼가 손/팔로 터치하면 간접 프리킥입니다. 골키퍼가 먼저 볼을 확실히 차거나 차려고 시도한 뒤라면 반칙이 아닙니다."},
+  {c:"fouls",law:12,p:100,n:true,t:"mc",q:"골키퍼가 자기 페널티 에어리어 안에서 볼을 손으로 컨트롤한 뒤 8초를 초과해 놓지 않았다. 재개 방법은?",o:["상대 간접 프리킥","상대 코너킥","골키퍼에게 경고","골킥"],a:1,e:"2025/26 개정으로 골키퍼가 볼을 방출하기 전에 8초를 초과해 손/팔로 컨트롤하면 상대에게 코너킥을 줍니다. 주심은 마지막 5초를 손을 들어 카운트다운합니다."},
+  {c:"fouls",law:12,p:99,s:true,t:"mc",q:"선수가 가까이 있는 상대 머리 높이로 발을 높이 들어 위험하게 플레이했지만 접촉은 없었다. 재개 방법은?",o:["직접 프리킥","간접 프리킥","드롭볼","페널티킥"],a:1,e:"위험한 방식의 플레이는 간접 프리킥입니다. 볼을 플레이하려는 행동이 누군가를 다치게 할 위험이 있거나, 부상이 두려워 가까운 상대가 볼을 플레이하지 못하게 하는 경우가 해당합니다."},
+  {c:"fouls",law:12,p:97,t:"ox",q:"골키퍼가 자기 페널티 에어리어 밖에서 볼을 손으로 잡으면 상대에게 직접 프리킥을 준다.",a:0,e:"페널티 에어리어 밖에서 골키퍼는 다른 선수와 똑같이 핸드볼 제한을 받습니다. 핸드볼 반칙은 직접 프리킥입니다."},
+
+  // ---- 재개 방법
+  {c:"restart",law:13,p:112,t:"mc",q:"프리킥 때 상대 선수는 볼에서 최소 몇 m 떨어져야 할까?",o:["4m","7m","9.15m","11m"],a:2,e:"볼이 인 플레이될 때까지 상대 선수는 볼에서 9.15m 이상 떨어져야 합니다(골포스트 사이 자기 골라인 위에 있는 경우는 예외). 거리를 지키지 않으면 경고 사유입니다."},
+  {c:"restart",law:13,p:112,t:"mc",q:"수비팀 선수 3명 이상이 ‘벽’을 만들었을 때, 공격팀 선수는 벽에서 최소 몇 m 떨어져야 할까?",o:["0.5m","1m","2m","9.15m"],a:1,e:"수비 선수 3명 이상이 벽을 만들면, 볼이 인 플레이될 때까지 공격팀 선수는 벽에서 최소 1m 떨어져야 합니다."},
+  {c:"restart",law:13,p:111,t:"mc",q:"주심이 간접 프리킥을 알리는 신호는?",o:["한 팔을 머리 위로 들고, 볼이 다른 선수에게 닿을 때까지 유지한다","페널티 마크를 가리킨다","호루라기를 두 번 짧게 분다","두 팔을 머리 위로 교차한다"],a:0,e:"주심은 한 팔을 머리 위로 들어 간접 프리킥을 알리고, 킥 후 볼이 다른 선수에게 닿거나 아웃 오브 플레이되거나 직접 득점이 불가능함이 분명해질 때까지 유지합니다."},
+  {c:"restart",law:13,p:111,t:"mc",q:"간접 프리킥한 볼이 아무도 닿지 않고 곧바로 상대 골에 들어갔다. 재개 방법은?",o:["득점 인정","골킥","코너킥","다시 차기"],a:1,e:"간접 프리킥이 곧바로 상대 골에 들어가면 골킥, 직접이든 간접이든 프리킥이 곧바로 자기 골에 들어가면 코너킥입니다. 주심이 간접 신호를 하지 않아 골이 됐다면 다시 찹니다."},
+  {c:"restart",law:14,p:115,t:"mc",q:"페널티킥을 차는 순간 골키퍼의 발 위치로 맞는 것은?",o:["두 발 모두 골라인 위에","적어도 한 발의 일부가 골라인에 닿거나, 골라인과 일직선이거나, 골라인 뒤에","골 에어리어 안 어디든","제한 없음"],a:1,e:"골키퍼는 킥할 때까지 골포스트 사이 골라인에서 키커를 마주 봐야 하고, 킥하는 순간 적어도 한 발의 일부가 골라인에 닿거나, 골라인과 일직선이거나, 골라인 뒤에 있어야 합니다."},
+  {c:"restart",law:14,p:117,t:"ox",q:"페널티킥 키커가 도움닫기 도중에 페인팅을 하는 것은 허용된다.",a:0,e:"도움닫기 중 페인팅은 허용됩니다. 도움닫기를 마친 뒤 차는 척하며 속이면 반칙으로, 키커에게 경고하고 간접 프리킥으로 재개합니다(득점된 경우도 마찬가지)."},
+  {c:"restart",law:15,p:121,t:"mc",q:"다음 중 올바른 스로인 방법이 아닌 것은?",o:["두 손으로 던진다","머리 뒤에서 머리 위로 던진다","두 발의 일부가 터치라인 위나 터치라인 밖 지면에 있다","한 손으로 멀리 던진다"],a:3,e:"스로인은 경기장을 향해 서서, 두 발의 일부를 터치라인 위나 밖 지면에 두고, 볼이 나간 지점에서 두 손으로 머리 뒤에서 머리 위로 던집니다. 잘못 던지면 상대 팀이 스로인합니다."},
+  {c:"restart",law:15,p:121,t:"ox",q:"스로인한 볼이 아무도 닿지 않고 곧바로 상대 골에 들어가면 득점이다.",a:1,e:"스로인으로는 직접 득점할 수 없습니다. 상대 골에 들어가면 골킥, 스로인한 팀의 골에 들어가면 코너킥입니다."},
+  {c:"restart",law:15,p:"121~122",t:"ox",q:"스로인 때 상대 선수는 스로인할 지점에서 2m 이상 떨어져야 한다.",a:0,e:"상대 선수는 스로인할 터치라인 지점에서 최소 2m 떨어져야 합니다. 2m보다 가까이 오거나 방해하면 반스포츠적 행위로 경고합니다."},
+  {c:"restart",law:16,p:124,t:"mc",q:"골킥한 볼은 언제 인 플레이가 될까?",o:["페널티 에어리어를 벗어났을 때","다른 선수가 터치했을 때","볼을 차서 볼이 분명히 움직였을 때","골 에어리어를 벗어났을 때"],a:2,e:"골킥은 골 에어리어 안 어디서든 차며, 볼을 차서 분명히 움직이면 인 플레이입니다. 상대 선수는 볼이 인 플레이될 때까지 페널티 에어리어 밖에 있어야 합니다."},
+  {c:"restart",law:16,p:124,t:"ox",q:"골킥한 볼이 곧바로 상대 골에 들어가면 득점이 인정된다.",a:0,e:"골킥으로 상대 골에만 직접 득점할 수 있습니다. 킥한 팀의 골에 곧바로 들어가면 상대 코너킥입니다."},
+  {c:"restart",law:17,p:127,t:"ox",q:"코너킥한 볼이 아무도 닿지 않고 곧바로 상대 골에 들어가면 득점이 인정된다.",a:0,e:"코너킥으로 상대 골에만 직접 득점할 수 있습니다. 상대 선수는 볼이 인 플레이될 때까지 코너 아크에서 9.15m 이상 떨어져야 합니다."}
+];
+
+
+// ---------- helpers
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const lawTag = n => `제${n}조 ${LAWS[n-1]}`;
+const srcText = it => `근거: 2025/26 경기규칙 ${lawTag(it.law)} · p.${it.p}`;
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const MODES = {
+  speed:    {time:20, rules:"문항마다 20초. 정심이면 100점 + 남은 시간 1초당 5점, 2연속부터는 콤보 보너스(연속 1회당 +20점, 최대 +100점)가 붙습니다. 시간이 지나면 오심입니다."},
+  survival: {time:20, rules:"문제는 끝없이 나옵니다. 오심하거나 20초를 넘기면 경고 한 장, 경고 두 장이면 퇴장으로 게임이 끝납니다. 정심 개수로 순위를 매깁니다."},
+  team:     {time:30, rules:"두 팀이 한 문제씩 번갈아 답하고, 선생님이 팀이 고른 답을 눌러 줍니다. 정심이면 1골! 정규 문항이 끝났을 때 동점이면 한 문제씩 승부차기를 해서, 한 팀만 맞히는 순간 승부가 납니다."},
+  practice: {time:0,  rules:"시간 제한 없이 풀고, 답을 고르면 바로 정답과 해설이 나옵니다."}
+};
+const LB_KEY = m => `refquiz-lb-${m}`;
+
+// ---------- 반 순위 서버: 구글 시트 Apps Script 웹 앱 주소(…/exec)를 따옴표 안에 붙여 넣으세요
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxTKxO4uRSp5TrxzE2ujvcuYXmwAC3rSfrIp3V2yMZ4KcIsiAHLFNLEdC_dRrDNzH8V/exec";
+const classApi = {
+  on: /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(SHEET_URL),
+  async get(mode, room){
+    const r = await fetch(`${SHEET_URL}?mode=${mode}&room=${encodeURIComponent(room||"")}`);
+    const j = await r.json(); if(!j.ok) throw new Error(j.error||"fail"); return j;
+  },
+  async post(rec){
+    const r = await fetch(SHEET_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(rec)});
+    const j = await r.json(); if(!j.ok) throw new Error(j.error||"fail"); return j;
+  }
+};
+const NET_ERR = "반 순위 서버에 연결하지 못했습니다. 선생님이 알려 준 퀴즈 주소로 접속했는지, 인터넷이 되는지 확인하세요.";
+function renderClassList(el, data, me, max=10){
+  const unit = data.mode==="speed" ? "점" : "개";
+  if(!data.top.length){ el.innerHTML = `<li class="empty">아직 ${data.room?esc(data.room)+"반 ":""}기록이 없습니다. 첫 기록의 주인공이 되어 보세요.</li>`; return; }
+  el.innerHTML = data.top.slice(0,max).map((r,i)=>{
+    const mine = me && me.name===r.name && me.room===r.room;
+    return `<li class="${mine?"me":""}"><span class="rk">${i+1}위</span><span>${esc(r.name)}${data.room?"":`<span class="rm">${esc(r.room)}반</span>`}</span><span class="sc">${r.score}${unit}</span></li>`;
+  }).join("");
+}
+
+// ---------- sound (Web Audio, starts after a click)
+let actx = null;
+const snd = {
+  on: store.get("refquiz-sound") !== false,
+  ctx(){ if(!this.on) return null; try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==="suspended") actx.resume(); }catch(e){ actx=null; } return actx; },
+  tone(freq, dur, {type="sine", vol=.12, at=0, to=null}={}){
+    const c=this.ctx(); if(!c) return;
+    const t=c.currentTime+at, o=c.createOscillator(), g=c.createGain();
+    o.type=type; o.frequency.setValueAtTime(freq,t); if(to) o.frequency.exponentialRampToValueAtTime(to,t+dur);
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.015); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g).connect(c.destination); o.start(t); o.stop(t+dur+.02);
+  },
+  whistle(len=.35, at=0){
+    const c=this.ctx(); if(!c) return;
+    const t=c.currentTime+at, o=c.createOscillator(), lfo=c.createOscillator(), lg=c.createGain(), g=c.createGain();
+    o.type="sine"; o.frequency.value=2750; lfo.frequency.value=34; lg.gain.value=180;
+    lfo.connect(lg).connect(o.frequency);
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(.09,t+.02); g.gain.setValueAtTime(.09,t+len-.05); g.gain.exponentialRampToValueAtTime(0.0001,t+len);
+    o.connect(g).connect(c.destination); o.start(t); lfo.start(t); o.stop(t+len+.02); lfo.stop(t+len+.02);
+  },
+  ok(){ this.tone(660,.14,{vol:.1}); this.tone(990,.2,{vol:.1,at:.1}); },
+  bad(){ this.tone(190,.32,{type:"sawtooth",vol:.07,to:120}); },
+  tick(){ this.tone(1200,.05,{type:"square",vol:.04}); },
+  goal(){ this.whistle(.25); this.tone(523,.15,{vol:.1,at:.3}); this.tone(659,.15,{vol:.1,at:.42}); this.tone(784,.3,{vol:.11,at:.54}); },
+  end(){ this.whistle(.28); this.whistle(.28,.38); this.whistle(.8,.76); }
+};
+function syncSound(){
+  $("snd-setup").textContent = snd.on ? "소리 켜짐" : "소리 꺼짐";
+  $("snd-setup").setAttribute("aria-pressed", snd.on);
+  $("snd-quiz").textContent = snd.on ? "소리 끄기" : "소리 켜기";
+}
+function toggleSound(){ snd.on=!snd.on; store.set("refquiz-sound", snd.on); syncSound(); if(snd.on) snd.tick(); }
+$("snd-setup").addEventListener("click",toggleSound);
+$("snd-quiz").addEventListener("click",toggleSound);
+syncSound();
+
+// ---------- setup
+const prefs = store.get("refquiz-prefs") || {};
+const state = {
+  mode: MODES[prefs.mode] ? prefs.mode : "speed",
+  cats: new Set(CATS.map(c=>c.id)),
+  count: prefs.count || 10
+};
+if(prefs.teamA) $("team-a").value = prefs.teamA;
+if(prefs.teamB) $("team-b").value = prefs.teamB;
+
+$("law-list").innerHTML = LAWS.map((l,i)=>`<li><span>제${i+1}조</span>${l}</li>`).join("");
+
+function renderChips(){
+  $("cat-chips").innerHTML = CATS.map(c=>{
+    const n = Q.filter(q=>q.c===c.id).length;
+    return `<button type="button" class="chip" id="chip-${c.id}" data-c="${c.id}" aria-pressed="${state.cats.has(c.id)}">${c.name} <small>${c.laws} · ${n}문</small></button>`;
+  }).join("");
+}
+$("cat-chips").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  const id=b.dataset.c;
+  if(state.cats.has(id)){ if(state.cats.size>1) state.cats.delete(id); } else state.cats.add(id);
+  renderChips();
+});
+function renderLB(listEl, mode, highlight){
+  const lb = store.get(LB_KEY(mode)) || [];
+  if(!lb.length){ listEl.innerHTML = `<li class="empty" style="display:block;border:0">아직 기록이 없습니다. 첫 기록의 주인공이 되어 보세요.</li>`; return; }
+  const unit = mode==="speed" ? "점" : "개";
+  listEl.innerHTML = lb.map((r,i)=>`<li class="${highlight===r.id?"me":""}"><span class="rk">${i+1}위</span><span>${esc(r.name)}</span><span class="sc">${r.score}${unit}</span></li>`).join("");
+}
+function syncSetup(){
+  document.querySelectorAll("#modes .mode").forEach(b=>b.setAttribute("aria-pressed", b.dataset.m===state.mode));
+  document.querySelectorAll("#count-seg button").forEach(b=>b.setAttribute("aria-pressed", +b.dataset.n===state.count));
+  $("count-wrap").hidden = state.mode==="survival";
+  $("team-wrap").hidden = state.mode!=="team";
+  $("count-label").textContent = state.mode==="team" ? "정규 문항 수 (두 팀 합계)" : "문항 수";
+  $("rules").textContent = MODES[state.mode].rules;
+  const hasLB = state.mode==="speed" || state.mode==="survival";
+  $("lb-wrap").hidden = !hasLB;
+  if(hasLB) renderSetupLB();
+}
+state.lbView = classApi.on ? "class" : "device";
+$("room-in").value = store.get("refquiz-room") || "";
+async function renderSetupLB(){
+  const modeName = state.mode==="speed" ? "스피드 판정" : "퇴장 서바이벌";
+  const cls = classApi.on && state.lbView==="class";
+  $("lb-tabs").hidden = !classApi.on;
+  document.querySelectorAll("#lb-tabs button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.v===state.lbView));
+  $("room-row").hidden = !cls;
+  $("lb-status").hidden = !cls;
+  $("lb-title").textContent = `${cls?"우리 반 순위":"이 기기 순위"} · ${modeName}`;
+  if(!cls){ renderLB($("lb-list"), state.mode); return; }
+  const room=$("room-in").value.trim();
+  if(!room){ $("lb-status").textContent="반을 입력하고 ‘순위 보기’를 누르면 우리 반 순위가 보입니다."; $("lb-list").innerHTML=""; return; }
+  const mode=state.mode, token = (renderSetupLB.n = (renderSetupLB.n||0)+1);
+  $("lb-status").textContent="순위를 불러오는 중…";
+  try{
+    const d = await classApi.get(mode, room);
+    if(token!==renderSetupLB.n) return;
+    $("lb-status").textContent = `${room}반 · ${d.players}명 참여 · 학생마다 최고 기록만 표시`;
+    renderClassList($("lb-list"), d, {name:store.get("refquiz-name"), room});
+  }catch(e){ if(token===renderSetupLB.n){ $("lb-status").textContent=NET_ERR; $("lb-list").innerHTML=""; } }
+}
+$("lb-tabs").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; state.lbView=b.dataset.v; renderSetupLB(); });
+$("room-go").addEventListener("click",()=>{ store.set("refquiz-room",$("room-in").value.trim()); renderSetupLB(); });
+$("room-in").addEventListener("keydown",e=>{ if(e.key==="Enter") $("room-go").click(); });
+$("modes").addEventListener("click",e=>{ const b=e.target.closest(".mode"); if(!b) return; state.mode=b.dataset.m; syncSetup(); });
+$("count-seg").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; state.count=+b.dataset.n; syncSetup(); });
+renderChips(); syncSetup();
+
+// ---------- game
+let run = null;
+const prep = q => {
+  if(q.t==="ox") return {...q, opts:["O","X"], ans:q.a};
+  const order = shuffle(q.o.map((_,i)=>i));
+  return {...q, opts:order.map(i=>q.o[i]), ans:order.indexOf(q.a)};
+};
+const teamName = i => i===0 ? ($("team-a").value.trim()||"청팀") : ($("team-b").value.trim()||"백팀");
+
+function start(mode, pool){
+  store.set("refquiz-prefs",{mode:state.mode,count:state.count,teamA:$("team-a").value,teamB:$("team-b").value});
+  let items = shuffle(pool).map(prep);
+  let reg = items.length;
+  if(mode==="practice" || mode==="speed") { items = items.slice(0, Math.min(state.count, items.length)); reg = items.length; }
+  if(mode==="team"){ reg = Math.min(state.count, items.length); if(reg%2) reg--; if(reg<2) reg=Math.min(2,items.length); }
+  run = {mode, items, reg, i:0, answers:[], score:0, streak:0, bestStreak:0, yellow:0,
+         goals:[0,0], shoot:[0,0], selected:null, locked:false, timerId:null, timeLeft:0, lastSec:null, savedId:null};
+  $("setup").hidden=true; $("result").hidden=true; $("quiz").hidden=false;
+  $("band").classList.add("slim");
+  $("qcard").classList.toggle("big", mode==="team");
+  $("progress").hidden = mode==="survival";
+  $("timer").hidden = !MODES[mode].time;
+  snd.whistle(.45);
+  renderQ();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("start-btn").addEventListener("click",()=>{
+  start(state.mode, Q.filter(q=>state.cats.has(q.c)));
+});
+
+const inShootout = () => run.mode==="team" && run.i >= run.reg;
+const turnOf = i => i % 2;
+
+function renderBoard(){
+  const r=run, ok=r.answers.filter(a=>a.ok).length, no=r.answers.length-ok;
+  let h="";
+  if(r.mode==="practice"){
+    h = `<span class="led">문항 <b>${r.i+1}/${r.items.length}</b></span><span class="led g">정심 <b>${ok}</b></span><span class="led r">오심 <b>${no}</b></span>`;
+  }else if(r.mode==="speed"){
+    h = `<span class="led">문항 <b>${r.i+1}/${r.items.length}</b></span><span class="led big">점수 <b id="led-score">${r.score}</b></span>` +
+        (r.streak>=2 ? `<span class="led g">콤보 <b>${r.streak}연속</b></span>` : "");
+  }else if(r.mode==="survival"){
+    const slots = [0,1].map(k=>`<span class="slot ${k<r.yellow ? (r.yellow>=2?"rd":"y") : ""}"></span>`).join("");
+    h = `<span class="led g big">정심 <b>${ok}</b></span><span class="led">경고 ${slots}</span>`;
+  }else{
+    h = `<span class="led big"><span class="ta">${esc(teamName(0))}</span> <b>${r.goals[0]} : ${r.goals[1]}</b> ${esc(teamName(1))}</span>` +
+        (inShootout() ? `<span class="led r">승부차기 <b>${r.shoot[0]} : ${r.shoot[1]}</b></span>` : `<span class="led">문항 <b>${Math.min(r.i+1,r.reg)}/${r.reg}</b></span>`);
+  }
+  if(MODES[r.mode].time) h += `<span class="led time" id="led-time">남은 시간 <b id="time-num">${Math.ceil(r.timeLeft)}</b></span>`;
+  $("board-nums").innerHTML = h;
+  const denom = r.mode==="team" ? r.reg : r.items.length;
+  $("prog").style.width = Math.min(100, (r.answers.length)/denom*100)+"%";
+}
+
+function renderQ(){
+  const r=run, it=r.items[r.i];
+  r.selected=null; r.locked=false; r.timeLeft = MODES[r.mode].time;
+  renderBoard();
+
+  const tb=$("turn");
+  if(r.mode==="team"){
+    const t=turnOf(r.i);
+    tb.hidden=false; tb.className = "turn " + (t===0?"a":"b");
+    tb.innerHTML = `<span>${esc(teamName(t))} 차례</span><small>${inShootout() ? "승부차기 · 맞히면 골, 틀리면 실축" : "정심이면 1골"}</small>`;
+  }else tb.hidden=true;
+
+  $("q-tags").innerHTML =
+    `<span class="tag law">${lawTag(it.law)}</span>`+
+    `<span class="tag">${it.t==="ox"?"O / X":"4지선다"}</span>`+
+    (it.s?`<span class="tag">상황 판정</span>`:"")+
+    (it.n?`<span class="tag new">2025/26 개정</span>`:"");
+  $("q-text").textContent = it.q;
+  const box=$("q-opts");
+  box.className = "opts"+(it.t==="ox"?" ox":"");
+  box.innerHTML = it.opts.map((o,i)=> it.t==="ox"
+    ? `<button type="button" class="opt" id="opt-${i}" data-i="${i}" aria-pressed="false"><span class="k">${o}</span><span class="sym">${o}</span><span class="txt">${o==="O"?"맞다":"틀리다"}</span></button>`
+    : `<button type="button" class="opt" id="opt-${i}" data-i="${i}" aria-pressed="false"><span class="k">${i+1}</span><span>${esc(o)}</span></button>`
+  ).join("");
+  $("feedback").hidden=true;
+  $("next-btn").hidden=true;
+  $("kbd-hint").textContent = it.t==="ox" ? "키보드: O·X로 답, Enter로 다음" : "키보드: 1–4로 답, Enter로 다음";
+  if(MODES[r.mode].time) startTimer(MODES[r.mode].time);
+}
+
+// ---------- timer
+function stopTimer(){ if(run && run.timerId){ clearInterval(run.timerId); run.timerId=null; } }
+function startTimer(sec){
+  stopTimer();
+  const t0=performance.now(), bar=$("timer-bar");
+  run.lastSec=null;
+  const tick=()=>{
+    const left=Math.max(0, sec-(performance.now()-t0)/1000);
+    run.timeLeft=left;
+    bar.style.width=(left/sec*100)+"%";
+    const s=Math.ceil(left), urgent = s<=5;
+    $("timer").classList.toggle("urgent",urgent);
+    const led=$("led-time"); if(led){ led.classList.toggle("urgent",urgent); $("time-num").textContent=s; }
+    if(s!==run.lastSec){ if(urgent && s>0) snd.tick(); run.lastSec=s; }
+    if(left<=0){ stopTimer(); reveal(true); }
+  };
+  tick();
+  run.timerId=setInterval(tick,100);
+}
+
+// ---------- answering
+$("q-opts").addEventListener("click",e=>{
+  const b=e.target.closest(".opt"); if(!b||!run||run.locked) return;
+  run.selected=+b.dataset.i; reveal(false);
+});
+
+function showGoal(title, sub, kind){
+  const g=$("goal"); g.className="goal"+(kind?" "+kind:"");
+  $("goal-t").textContent=title; $("goal-s").textContent=sub;
+  g.hidden=false; clearTimeout(showGoal.t); showGoal.t=setTimeout(()=>{ g.hidden=true; },1300);
+}
+$("goal").addEventListener("click",()=>{ $("goal").hidden=true; });
+function popPoints(txt){
+  const p=$("pop"); p.textContent=txt; p.classList.remove("show"); void p.offsetWidth; p.classList.add("show");
+}
+
+function reveal(timeout){
+  const r=run; if(r.locked) return;
+  r.locked=true; stopTimer();
+  const it=r.items[r.i], picked=timeout?null:r.selected, ok=picked===it.ans;
+  const team = r.mode==="team" ? turnOf(r.i) : null;
+  r.answers.push({q:it, picked, ok, timeout, team, shootout: inShootout()});
+
+  document.querySelectorAll("#q-opts .opt").forEach(b=>{
+    const i=+b.dataset.i; b.disabled=true;
+    if(i===picked) b.setAttribute("aria-pressed","true");
+    if(i===it.ans) b.classList.add("correct"); else if(i===picked) b.classList.add("wrong");
+  });
+
+  let head="", vClass="", vText="";
+  if(ok){ vClass="ok"; vText="정심"; } else if(timeout){ vClass="no"; vText="시간<br>초과"; } else { vClass="no"; vText="오심"; }
+
+  if(r.mode==="practice"){
+    head = ok ? "정심! 올바른 판정입니다." : "오심! 다시 확인해 볼까요?";
+  }else if(r.mode==="speed"){
+    if(ok){
+      r.streak++; r.bestStreak=Math.max(r.bestStreak,r.streak);
+      const timePts=Math.ceil(r.timeLeft)*5, combo=Math.min(r.streak-1,5)*20, pts=100+timePts+combo;
+      r.score+=pts; popPoints("+"+pts);
+      head = `정심! +${pts}점 (기본 100 · 시간 +${timePts}${combo?` · ${r.streak}연속 콤보 +${combo}`:""})`;
+    }else{
+      head = (timeout?"시간 초과! ":"오심! ") + (r.streak>=2 ? `${r.streak}연속 콤보가 끊겼습니다.` : "점수를 얻지 못했습니다.");
+      r.streak=0;
+    }
+  }else if(r.mode==="survival"){
+    if(ok){ r.streak++; r.bestStreak=Math.max(r.bestStreak,r.streak); head=`정심! 지금까지 ${r.answers.filter(a=>a.ok).length}개째입니다.`; }
+    else{
+      r.yellow++; r.streak=0;
+      if(r.yellow>=2){ vClass="rd"; vText="퇴장"; head=(timeout?"시간 초과! ":"오심! ")+"경고 두 장으로 퇴장입니다."; setTimeout(()=>showGoal("퇴장!","경고 2장 · 레드카드","red"),150); }
+      else { vText="경고"; head=(timeout?"시간 초과! ":"오심! ")+"경고 한 장. 한 번 더 오심하면 퇴장입니다."; }
+    }
+  }else{
+    const nm=teamName(team);
+    if(inShootout()){ if(ok) r.shoot[team]++; } else if(ok) r.goals[team]++;
+    head = ok ? `${nm} 골! 정확한 판정입니다.` : `${nm} ${timeout?"시간 초과로 ":""}${inShootout()?"실축":"골 실패"}! 정답을 확인하세요.`;
+    if(ok) setTimeout(()=>showGoal("골!", `${nm} ${inShootout()?"승부차기 성공":"득점"}`),120);
+  }
+
+  if(r.mode==="team" && ok) snd.goal(); else if(ok) snd.ok(); else snd.bad();
+  if(r.mode==="survival" && r.yellow>=2) snd.whistle(.7,.2);
+
+  const v=$("verdict"); v.className="verdict "+vClass; v.innerHTML=vText;
+  $("fb-head").textContent=head;
+  const answerText = it.t==="ox" ? it.opts[it.ans] : `${it.ans+1}번 ${it.opts[it.ans]}`;
+  $("fb-body").innerHTML = `정답은 <span class="ans"></span>입니다. <span class="exp"></span>`;
+  $("fb-body").querySelector(".ans").textContent = answerText;
+  $("fb-body").querySelector(".exp").textContent = it.e;
+  $("fb-src").textContent = srcText(it);
+  $("feedback").hidden=false;
+  renderBoard();
+  $("next-btn").textContent = isOver() ? "결과 보기" : (r.mode==="team" && r.i+1===r.reg ? "승부차기 시작" : "다음 문제");
+  $("next-btn").hidden=false;
+  $("next-btn").focus({preventScroll:true});
+}
+
+function isOver(){
+  const r=run, last = r.i >= r.items.length-1;
+  if(r.mode==="practice" || r.mode==="speed") return last;
+  if(r.mode==="survival") return r.yellow>=2 || last;
+  // team
+  if(r.i < r.reg-1) return false;
+  if(r.i === r.reg-1){
+    if(r.goals[0]!==r.goals[1]) return true;
+    return r.items.length - r.reg < 2;   // 승부차기할 문제가 부족하면 무승부
+  }
+  const pairDone = (r.i - r.reg) % 2 === 1;
+  if(!pairDone) return last;
+  if(r.shoot[0]!==r.shoot[1]) return true;
+  return r.items.length - (r.i+1) < 2;
+}
+
+function next(){
+  if(!run.locked) return;
+  if(isOver()) return finish();
+  run.i++;
+  if(run.mode==="team" && run.i===run.reg){ snd.whistle(.5); showGoal("승부차기","동점! 한 문제씩 번갈아 찹니다","miss"); }
+  renderQ();
+  $("qcard").scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+$("next-btn").addEventListener("click",next);
+$("quit-btn").addEventListener("click",()=>{
+  stopTimer();
+  if(!run.locked && run.answers.length===0){ toSetup(); return; }
+  finish();
+});
+
+document.addEventListener("keydown",e=>{
+  if($("quiz").hidden || !run || e.ctrlKey || e.metaKey || e.altKey) return;
+  if(document.activeElement && document.activeElement.tagName==="INPUT") return;
+  const it=run.items[run.i], k=e.key.toLowerCase();
+  if(!run.locked){
+    let pick=null;
+    if(it.t==="mc" && ["1","2","3","4"].includes(k)) pick=+k-1;
+    if(it.t==="ox" && (k==="o"||k==="ㅐ")) pick=0;
+    if(it.t==="ox" && (k==="x"||k==="ㅌ")) pick=1;
+    if(pick!==null){ run.selected=pick; reveal(false); }
+  }else if(k==="enter" && document.activeElement?.id!=="next-btn"){ e.preventDefault(); next(); }
+});
+
+// ---------- result
+const GRADES = [
+  {min:90, name:"FIFA 국제심판급", note:"경기규칙을 거의 완벽하게 알고 있어요."},
+  {min:75, name:"1급 심판급",      note:"대부분의 판정을 정확히 내릴 수 있어요."},
+  {min:50, name:"3급 심판 도전",   note:"기본은 갖췄어요. 틀린 문제를 연습해 보세요."},
+  {min:0,  name:"예비 심판",       note:"이제 시작이에요. 연습 경기로 해설부터 읽어 보세요."}
+];
+const SURV_GRADES = [
+  {min:20, name:"FIFA 국제심판급"}, {min:12, name:"1급 심판급"}, {min:6, name:"3급 심판 도전"}, {min:0, name:"예비 심판"}
+];
+function finish(){
+  stopTimer(); snd.end();
+  const r=run, total=r.answers.length, ok=r.answers.filter(a=>a.ok).length;
+  const pct = total ? Math.round(ok/total*100) : 0;
+  $("r-save-wrap").hidden=true; $("r-lb-wrap").hidden=true; $("r-msg").textContent="";
+
+  if(r.mode==="practice"){
+    const g=GRADES.find(g=>pct>=g.min);
+    $("r-score").innerHTML = `${ok}<small>/${total}</small>`;
+    $("r-grade").textContent = total ? g.name : "기록 없음";
+    $("r-note").textContent = total ? `정답률 ${pct}% · ${g.note}` : "푼 문제가 없습니다.";
+  }else if(r.mode==="speed"){
+    const g=GRADES.find(g=>pct>=g.min);
+    $("r-score").innerHTML = `${r.score}<small>점</small>`;
+    $("r-grade").textContent = g.name;
+    $("r-note").textContent = `정답 ${ok}/${total} (${pct}%) · 최고 콤보 ${r.bestStreak}연속`;
+    offerSave(r.score);
+  }else if(r.mode==="survival"){
+    const g=SURV_GRADES.find(g=>ok>=g.min);
+    $("r-score").innerHTML = `${ok}<small>개 정심</small>`;
+    $("r-grade").textContent = g.name;
+    $("r-note").textContent = r.yellow>=2 ? `경고 두 장으로 ${total}번째 문제에서 퇴장. 최고 연속 정심 ${r.bestStreak}개.`
+      : (total>=r.items.length ? `모든 문제를 풀고 완주했습니다! 경고 ${r.yellow}장.` : `중간에 그만뒀습니다. 경고 ${r.yellow}장.`);
+    offerSave(ok);
+  }else{
+    const A=teamName(0), B=teamName(1);
+    let w = r.goals[0]!==r.goals[1] ? (r.goals[0]>r.goals[1]?0:1) : (r.shoot[0]!==r.shoot[1] ? (r.shoot[0]>r.shoot[1]?0:1) : null);
+    $("r-score").innerHTML = `${r.goals[0]} : ${r.goals[1]}`;
+    $("r-grade").textContent = w===null ? "무승부" : `${w===0?A:B} 승리!`;
+    const shot = r.answers.some(a=>a.shootout) ? ` · 승부차기 ${r.shoot[0]} : ${r.shoot[1]}` : "";
+    $("r-note").textContent = `${A} 대 ${B}${shot} · 전체 정답률 ${pct}%`;
+    if(w!==null) setTimeout(()=>showGoal("경기 종료", `${w===0?A:B} 승리!`),200);
+  }
+
+  const cats = CATS.map(c=>{ const l=r.answers.filter(a=>a.q.c===c.id); return {c,n:l.length,ok:l.filter(a=>a.ok).length}; }).filter(x=>x.n);
+  $("r-cats").innerHTML = cats.map(x=>{ const p=Math.round(x.ok/x.n*100);
+    return `<div class="cat-row"><span>${x.c.name}</span><span class="bar"><i style="width:${p}%"></i></span><span class="v">${x.ok}/${x.n}</span></div>`; }).join("");
+  $("r-cats-label").hidden = !cats.length;
+
+  const wrong = r.answers.filter(a=>!a.ok);
+  $("r-review-label").textContent = `오답 노트 (${wrong.length})`;
+  const rv=$("r-review"); rv.innerHTML="";
+  if(!wrong.length){
+    rv.innerHTML = `<div class="perfect">${total?"틀린 문제가 없습니다. 모든 판정이 정심이었어요.":"아직 푼 문제가 없습니다."}</div>`;
+  }else{
+    wrong.forEach((a,idx)=>{
+      const it=a.q, fmt=i=> it.t==="ox" ? it.opts[i] : `${i+1}번 ${it.opts[i]}`;
+      const d=document.createElement("details"); if(idx===0) d.open=true;
+      d.innerHTML = `<summary><span class="n">${lawTag(it.law).split(" ")[0]}</span><span class="qq"></span></summary><div class="body"><div class="mine"></div><div class="right"></div><div class="ex"></div><div class="src"></div></div>`;
+      d.querySelector(".qq").textContent = it.q;
+      d.querySelector(".mine").textContent = (a.team!==null ? `${teamName(a.team)}의 답: ` : "내 답: ") + (a.timeout ? "시간 초과" : fmt(a.picked));
+      d.querySelector(".right").textContent = "정답: " + fmt(it.ans);
+      d.querySelector(".ex").textContent = it.e;
+      d.querySelector(".src").textContent = srcText(it);
+      rv.appendChild(d);
+    });
+  }
+  $("retry-wrong").hidden = !wrong.length;
+  $("quiz").hidden=true; $("result").hidden=false;
+  $("band").classList.remove("slim");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function offerSave(score){
+  const m=run.mode;
+  $("r-save-wrap").hidden = score<=0;
+  $("r-room").hidden = !classApi.on;
+  $("r-room").value = store.get("refquiz-room") || "";
+  $("r-save-label").textContent = classApi.on ? "반 순위에 올리기 (반과 이름을 적어 주세요)" : "순위표에 이름 남기기";
+  $("r-save").textContent = classApi.on ? "반 순위에 올리기" : "기록 저장";
+  $("r-name").value = store.get("refquiz-name") || "";
+  $("r-save").disabled = false;
+  run.pendingScore = score;
+  $("r-lb-title").textContent = `이 기기 순위 · ${m==="speed"?"스피드 판정":"퇴장 서바이벌"}`;
+  $("r-lb-wrap").hidden=false;
+  renderLB($("r-lb"), m);
+}
+$("r-save").addEventListener("click",async ()=>{
+  const name=$("r-name").value.trim(), room=$("r-room").value.trim();
+  if(classApi.on && !room){ $("r-msg").textContent="반을 적어 주세요. 예: 2-3"; $("r-room").focus(); return; }
+  if(!name){ $("r-msg").textContent="이름을 적어 주세요."; $("r-name").focus(); return; }
+  const m=run.mode, lb=store.get(LB_KEY(m))||[], id=Date.now()+"";
+  lb.push({id, name, score:run.pendingScore});
+  lb.sort((a,b)=>b.score-a.score);
+  const top=lb.slice(0,10); store.set(LB_KEY(m), top); store.set("refquiz-name", name);
+  const rank = top.findIndex(x=>x.id===id);
+  $("r-msg").textContent = rank>=0 ? `저장했습니다. 이 기기 ${rank+1}위입니다.` : "저장했지만 10위 안에 들지 못했습니다.";
+  $("r-save").disabled = true;
+  renderLB($("r-lb"), m, id);
+  if(!classApi.on) return;
+  store.set("refquiz-room", room); $("room-in").value = room;
+  $("r-msg").textContent = "반 순위에 올리는 중…";
+  const ok=run.answers.filter(a=>a.ok).length;
+  try{
+    const d = await classApi.post({mode:m, room, name, score:run.pendingScore, correct:ok, total:run.answers.length});
+    const idx = d.top.findIndex(x=>x.room===room && x.name===name);
+    $("r-lb-title").textContent = `우리 반 순위 · ${room}반 · ${m==="speed"?"스피드 판정":"퇴장 서바이벌"}`;
+    renderClassList($("r-lb"), d, {name, room});
+    $("r-msg").textContent = idx>=0 ? `올렸습니다! 우리 반 ${d.players}명 중 ${idx+1}위입니다. (내 최고 기록 기준)` : "올렸습니다.";
+  }catch(e){
+    $("r-msg").textContent = NET_ERR + " 이 기기 순위에는 저장했습니다.";
+  }
+});
+$("r-name").addEventListener("keydown",e=>{ if(e.key==="Enter") $("r-save").click(); });
+$("r-room").addEventListener("keydown",e=>{ if(e.key==="Enter") $("r-name").focus(); });
+
+// ---------- 교실 화면용 순위판 (주소 끝에 #board)
+const bv = {mode:"speed", timer:null};
+$("bv-room").value = store.get("refquiz-room") || "";
+async function loadBoard(){
+  document.querySelectorAll("#bv-mode button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.m===bv.mode));
+  const room=$("bv-room").value.trim();
+  $("bv-title").textContent = `${room?room+"반":"전체"} 순위 · ${bv.mode==="speed"?"스피드 판정":"퇴장 서바이벌"}`;
+  if(!classApi.on){ $("bv-status").textContent="반 순위 서버가 아직 연결되지 않았습니다. 배포 안내의 구글 시트 설정을 먼저 해 주세요."; $("bv-list").innerHTML=""; return; }
+  try{
+    const d = await classApi.get(bv.mode, room);
+    $("bv-status").textContent = `${d.players}명 참여 · 학생마다 최고 기록만 표시 · 15초마다 자동 새로고침 · ${new Date().toLocaleTimeString("ko-KR")} 기준`;
+    renderClassList($("bv-list"), d, null, 20);
+  }catch(e){ $("bv-status").textContent = NET_ERR; }
+}
+function route(){
+  const on = location.hash==="#board";
+  clearInterval(bv.timer); bv.timer=null;
+  if(on){
+    stopTimer();
+    ["setup","quiz","result"].forEach(id=>$(id).hidden=true);
+    $("board-view").hidden=false; $("band").classList.add("slim");
+    loadBoard(); bv.timer=setInterval(loadBoard,15000);
+  }else if(!$("board-view").hidden){
+    $("board-view").hidden=true; toSetup();
+  }
+}
+$("bv-mode").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; bv.mode=b.dataset.m; loadBoard(); });
+$("bv-refresh").addEventListener("click",loadBoard);
+$("bv-room").addEventListener("keydown",e=>{ if(e.key==="Enter") loadBoard(); });
+$("bv-close").addEventListener("click",()=>{ history.replaceState(null,"",location.pathname+location.search); route(); });
+window.addEventListener("hashchange",route);
+
+$("retry-all").addEventListener("click",()=>start(run.mode, Q.filter(q=>state.cats.has(q.c))));
+$("retry-wrong").addEventListener("click",()=>{
+  const base = run.answers.filter(a=>!a.ok).map(a=>Q.find(q=>q.q===a.q.q));
+  const seen = [...new Set(base)];
+  state.count = 999; start("practice", seen); state.count = prefs.count || 10;
+});
+function toSetup(){ stopTimer(); $("quiz").hidden=true; $("result").hidden=true; $("setup").hidden=false; $("band").classList.remove("slim"); syncSetup(); window.scrollTo({top:0,behavior:"smooth"}); }
+$("to-setup").addEventListener("click",toSetup);
+route();
+</script>
